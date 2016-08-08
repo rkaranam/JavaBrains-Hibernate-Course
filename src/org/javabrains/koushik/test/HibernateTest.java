@@ -1,14 +1,16 @@
 package org.javabrains.koushik.test;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import org.javabrains.koushik.dto.UserDetails;
 import org.javabrains.koushik.valueobjects.Address;
 import org.javabrains.koushik.valueobjects.Credentials;
+import org.javabrains.koushik.valueobjects.Phone;
 
 public class HibernateTest {
 
@@ -28,6 +30,11 @@ public class HibernateTest {
 		user1.setUserType("Permanent");
 		// user1.setAddress("Wall Street, California");
 		// user1.setAddress(new Address("Long Road", "Bohemia", "Prague", "110181"));
+		
+		Set<Phone> phonesAvailable = new HashSet<Phone>();
+		phonesAvailable.add(new Phone("789789", "Rotocar", "Blackwood County", "Home"));
+		phonesAvailable.add(new Phone("123456", "Verysol", "Malthora", "Work"));
+		user1.setPhoneNumbers(phonesAvailable);
 		
 		Address user1HomeAddr = new Address();
 		user1HomeAddr.setStreet("Sea Rd");
@@ -59,6 +66,12 @@ public class HibernateTest {
 		user2.setDescription("Hands on experience with multiple Javascript frameworks");
 		// user2.setAddress("Beijing, China");
 		// user2.setAddress(new Address("Race Court Rd", "San Jose", "California", "1022"));
+		
+		phonesAvailable = null;
+		phonesAvailable = new HashSet<Phone>();
+		phonesAvailable.add(new Phone("110234", "Vodafone", "San Jose", "Home"));
+		phonesAvailable.add(new Phone("234566", "Verizon", "Oakmont", "Work"));
+		user2.setPhoneNumbers(phonesAvailable);
 		
 		Address user2HomeAddr = new Address();
 		user2HomeAddr.setStreet("Race Court Rd");

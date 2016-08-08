@@ -1,41 +1,45 @@
 package org.javabrains.koushik.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.javabrains.koushik.valueobjects.Address;
 import org.javabrains.koushik.valueobjects.Credentials;
+import org.javabrains.koushik.valueobjects.Phone;
 
 @Entity(name = "USER_DETAILS")
 public class UserDetails {
-
-	/*@Id @GeneratedValue(strategy =GenerationType.IDENTITY)
-	private int userId;*/
 	
-	@Id
 	@EmbeddedId
 	private Credentials credentials;
 
+	@Column(name = "USER_NAME")
 	private String userName;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name = "JOINED_DATE")
 	private Date joinedDate;
 	
 	@Temporal(TemporalType.TIME)
+	@Column(name = "JOINED_TIME")
 	private Date joinedTime;
 	
 	@Transient
 	private String userType;
 	
+	@Column(name = "DESCRIPTION")
 	private String description;
 	
 	@AttributeOverrides({
@@ -54,6 +58,10 @@ public class UserDetails {
 	})
 	private Address officeAddress;
 	
+	@ElementCollection
+	@Embedded
+	private Set<Phone> phoneNumbers = new HashSet<Phone>();
+	
 	/*public UserDetails() {
 		System.out.println("UserDetails: Default Constructor called!");
 	}*/
@@ -62,6 +70,14 @@ public class UserDetails {
 		return credentials;
 	}
 	
+	public Set<Phone> getPhoneNumbers() {
+		return phoneNumbers;
+	}
+
+	public void setPhoneNumbers(Set<Phone> phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
+	}
+
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
