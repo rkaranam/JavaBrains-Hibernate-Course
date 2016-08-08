@@ -2,7 +2,9 @@ package org.javabrains.koushik.dto;
 
 import java.util.Date;
 
-import javax.persistence.Embedded;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,15 +32,46 @@ public class UserDetails {
 	
 	private String description;
 	
-	@Embedded
-	private Address address;
+	@AttributeOverrides({
+			@AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
+			@AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
+			@AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "HOME_PIN_CODE") )
+	})
+	private Address homeAddress;
+	
+	@AttributeOverrides({
+			@AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NAME")),
+			@AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NAME")),
+			@AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE_NAME")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "OFFICE_PIN_CODE"))			
+	})
+	private Address officeAddress;
 	
 	/*public UserDetails() {
 		System.out.println("UserDetails: Default Constructor called!");
 	}*/
 	
+	
+	
 	public Date getJoinedTime() {
 		return joinedTime;
+	}
+
+	public Address getHomeAddress() {
+		return homeAddress;
+	}
+
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+
+	public Address getOfficeAddress() {
+		return officeAddress;
+	}
+
+	public void setOfficeAddress(Address officeAddress) {
+		this.officeAddress = officeAddress;
 	}
 
 	public void setJoinedTime(Date joinedTime) {
@@ -67,14 +100,6 @@ public class UserDetails {
 
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public int getUserId() {

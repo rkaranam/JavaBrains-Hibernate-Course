@@ -21,13 +21,21 @@ public class HibernateTest {
 		// user1.setAddress("Wall Street, California");
 		// user1.setAddress(new Address("Long Road", "Bohemia", "Prague", "110181"));
 		
-		Address user1Addr = new Address();
-		user1Addr.setStreet("Sea Rd");
-		user1Addr.setCity("Bohemia");
-		user1Addr.setState("Prague");
-		user1Addr.setPincode("1101");
+		Address user1HomeAddr = new Address();
+		user1HomeAddr.setStreet("Sea Rd");
+		user1HomeAddr.setCity("Bohemia");
+		user1HomeAddr.setState("Prague");
+		user1HomeAddr.setPincode("1101");
 		
-		user1.setAddress(user1Addr);
+		user1.setHomeAddress(user1HomeAddr);
+		
+		Address user1OfficeAddr = new Address();
+		user1OfficeAddr.setStreet("Authur Rd");
+		user1OfficeAddr.setCity("Bohemia");
+		user1OfficeAddr.setState("Prague");
+		user1OfficeAddr.setPincode("1106");
+		
+		user1.setOfficeAddress(user1OfficeAddr);
 		
 		UserDetails user2 = new UserDetails();
 		user2.setUserName("2nd User");
@@ -38,26 +46,27 @@ public class HibernateTest {
 		// user2.setAddress("Beijing, China");
 		// user2.setAddress(new Address("Race Court Rd", "San Jose", "California", "1022"));
 		
-		Address user2Addr = new Address();
-		user2Addr.setStreet("Race Court Rd");
-		user2Addr.setCity("Pennylsvania");
-		user2Addr.setState("California");
-		user2Addr.setPincode("1022");
+		Address user2HomeAddr = new Address();
+		user2HomeAddr.setStreet("Race Court Rd");
+		user2HomeAddr.setCity("Pennylsvania");
+		user2HomeAddr.setState("California");
+		user2HomeAddr.setPincode("1022");
 		
-		user2.setAddress(user2Addr);
+		user2.setHomeAddress(user2HomeAddr);
 		
-		UserDetails user3 = new UserDetails();
-		user3.setUserName("3rd User");
-		user3.setJoinedDate(new Date());
-		user3.setDescription("Experienced Frontend developer");
-		user3.setAddress(new Address());
+		Address user2OfficeAddr = new Address();
+		user2OfficeAddr.setStreet("Cotton Rd");
+		user2OfficeAddr.setCity("Oak City");
+		user2OfficeAddr.setState("Yorkshire");
+		user2OfficeAddr.setPincode("1044");
+		
+		user2.setOfficeAddress(user2OfficeAddr);
 		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
 		session.save(user1);
 		session.save(user2);
-		session.save(user3);
 		session.getTransaction().commit();
 		session.clear();
 		
@@ -68,7 +77,8 @@ public class HibernateTest {
 		session.getTransaction().commit();
 		session.close();
 		
-		System.out.println("Retried User Object: " + retrievedUser.getAddress());
+		System.out.println("Retried User addresses: Home Address = " + retrievedUser.getHomeAddress() +
+							"and Office Address = " + retrievedUser.getOfficeAddress());
 		
 		session.getSessionFactory().close();
 		
