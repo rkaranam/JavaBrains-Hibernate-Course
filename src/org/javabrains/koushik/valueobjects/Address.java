@@ -1,4 +1,4 @@
-package org.javabrains.koushik.dto;
+package org.javabrains.koushik.valueobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

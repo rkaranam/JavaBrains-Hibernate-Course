@@ -5,20 +5,26 @@ import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.javabrains.koushik.valueobjects.Address;
+import org.javabrains.koushik.valueobjects.Credentials;
+
 @Entity(name = "USER_DETAILS")
 public class UserDetails {
 
-	@Id @GeneratedValue(strategy =GenerationType.IDENTITY)
-	private int userId;
+	/*@Id @GeneratedValue(strategy =GenerationType.IDENTITY)
+	private int userId;*/
 	
+	@Id
+	@EmbeddedId
+	private Credentials credentials;
+
 	private String userName;
 	
 	@Temporal(TemporalType.DATE)
@@ -52,7 +58,13 @@ public class UserDetails {
 		System.out.println("UserDetails: Default Constructor called!");
 	}*/
 	
+	public Credentials getCredentials() {
+		return credentials;
+	}
 	
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
+	}
 	
 	public Date getJoinedTime() {
 		return joinedTime;
@@ -102,13 +114,14 @@ public class UserDetails {
 		this.joinedDate = joinedDate;
 	}
 
+	/*
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
+	}*/
 
 	public String getUserName() {
 		return userName;
