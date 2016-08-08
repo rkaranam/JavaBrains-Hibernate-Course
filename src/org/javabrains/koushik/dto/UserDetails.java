@@ -11,6 +11,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -28,12 +30,12 @@ public class UserDetails {
 	@Column(name = "USER_NAME")
 	private String userName;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "JOINED_DATE")
+	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
 	
-	@Temporal(TemporalType.TIME)
 	@Column(name = "JOINED_TIME")
+	@Temporal(TemporalType.TIME)
 	private Date joinedTime;
 	
 	@Transient
@@ -59,7 +61,12 @@ public class UserDetails {
 	private Address officeAddress;
 	
 	@ElementCollection
-	@Embedded
+	@JoinTable(
+		name = "USER_PHONE_NUMBERS",
+		joinColumns = {
+				@JoinColumn(name = "USER_LOGIN_ID"),
+				@JoinColumn(name = "USER_LOGIN_PASSWORD")
+	})
 	private Set<Phone> phoneNumbers = new HashSet<Phone>();
 	
 	/*public UserDetails() {
