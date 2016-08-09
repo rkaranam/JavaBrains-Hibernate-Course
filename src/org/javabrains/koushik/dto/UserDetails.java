@@ -1,14 +1,13 @@
 package org.javabrains.koushik.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,6 +16,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.javabrains.koushik.valueobjects.Address;
 import org.javabrains.koushik.valueobjects.Credentials;
 import org.javabrains.koushik.valueobjects.Phone;
@@ -66,8 +68,10 @@ public class UserDetails {
 		joinColumns = {
 				@JoinColumn(name = "USER_LOGIN_ID"),
 				@JoinColumn(name = "USER_LOGIN_PASSWORD")
-	})
-	private Set<Phone> phoneNumbers = new HashSet<Phone>();
+		})
+	@GenericGenerator(name = "sequence-gen", strategy = "sequence")
+	@CollectionId(columns = { @Column(name = "ADDRESS_ID") }, generator = "sequence-gen", type = @Type(type = "long"))
+	private Collection<Phone> phoneNumbers = new ArrayList<Phone>();
 	
 	/*public UserDetails() {
 		System.out.println("UserDetails: Default Constructor called!");
@@ -76,14 +80,14 @@ public class UserDetails {
 	public Credentials getCredentials() {
 		return credentials;
 	}
-	
-	public Set<Phone> getPhoneNumbers() {
+
+	public Collection<Phone> getPhoneNumbers() {
 		return phoneNumbers;
 	}
 
-	public void setPhoneNumbers(Set<Phone> phoneNumbers) {
+	public void setPhoneNumbers(Collection<Phone> phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
-	}
+	}	
 
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
