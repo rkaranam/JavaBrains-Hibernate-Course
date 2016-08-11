@@ -158,4 +158,14 @@ public class UserDetails {
 		this.userName = userName;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDetails [credentials=" + credentials + ", userName="
+				+ userName + ", joinedDate=" + joinedDate + ", joinedTime="
+				+ joinedTime + ", userType=" + userType + ", description="
+				+ description + ", homeAddress=" + homeAddress
+				+ ", officeAddress=" + officeAddress + ", phoneNumbers="
+				+ phoneNumbers + "]";
+	}
+
 }

@@ -28,5 +28,11 @@ public class Credentials implements Serializable {
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
 	}
+	
+	@Override
+	public String toString() {
+		return "Credentials [loginId=" + loginId + ", loginPassword="
+				+ loginPassword + "]";
+	}
 
 }

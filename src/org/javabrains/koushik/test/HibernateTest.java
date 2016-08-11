@@ -1,5 +1,6 @@
 package org.javabrains.koushik.test;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -101,12 +102,18 @@ public class HibernateTest {
 		session = factory.openSession();
 		session.beginTransaction();
 		retrievedUser = session.get(UserDetails.class, user2.getCredentials());
+		Collection<Phone> phoneNumbers = retrievedUser.getPhoneNumbers();
 		session.getTransaction().commit();
+		
+		System.out.println("Retrieved User object: " + retrievedUser);
+		
+		System.out.println("Phone Numbers of the user: " + phoneNumbers.size());
 		session.close();
 		
-		System.out.println("Retried User addresses: Home Address = " + retrievedUser.getHomeAddress() +
-							"and Office Address = " + retrievedUser.getOfficeAddress());
-		
+		System.out.println("The Phone Numbers are: " + phoneNumbers);
+		for (Phone phone : phoneNumbers) {
+			System.out.println(phone);
+		}
 		session.getSessionFactory().close();
 		
 	}

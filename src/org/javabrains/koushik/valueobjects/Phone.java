@@ -57,4 +57,10 @@ public class Phone {
 		this.area = area;
 	}
 
+	@Override
+	public String toString() {
+		return "Phone [phoneNumber=" + phoneNumber + ", provider=" + provider
+				+ ", area=" + area + ", phoneType=" + phoneType + "]";
+	}
+
 }
