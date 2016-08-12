@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.javabrains.koushik.dto.UserDetails;
+import org.javabrains.koushik.dto.Vehicle;
 import org.javabrains.koushik.valueobjects.Credentials;
 
 public class HibernateTest {
@@ -38,13 +39,18 @@ public class HibernateTest {
 		user2.setUserType("Contract");
 		user2.setDescription("Hands on experience with multiple Javascript frameworks");
 		
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleName("Car");
+		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
 		session.save(user1);
 		session.save(user2);
+		session.save(vehicle);
 		session.getTransaction().commit();
-		session.clear();
+		
+		/*session.clear();
 		
 		UserDetails retrievedUser = new UserDetails();
 		session = factory.openSession();
@@ -53,7 +59,7 @@ public class HibernateTest {
 
 		session.getTransaction().commit();
 		
-		System.out.println("Retrieved User object: " + retrievedUser);
+		System.out.println("Retrieved User object: " + retrievedUser);*/
 
 		session.close();		
 		
