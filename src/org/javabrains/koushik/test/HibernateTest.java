@@ -27,15 +27,18 @@ public class HibernateTest {
 		user1.setUserType("Permanent");
 		
 		Vehicle vehicle = new Vehicle();
-		vehicle.setVehicleName("Car");
+		vehicle.setVehicleName("Jumbo Jet");
 		
 		Vehicle anotherVehicle = new Vehicle();
-		anotherVehicle.setVehicleName("Van");
+		anotherVehicle.setVehicleName("Flying Saucer");
 		
-		user1.getVehicles().add(vehicle);
+		/*user1.getVehicles().add(vehicle);
 		user1.getVehicles().add(anotherVehicle);
 		vehicle.setUser(user1);
-		anotherVehicle.setUser(user1);
+		anotherVehicle.setUser(user1);*/
+		
+		user1.assignVehicle(vehicle);
+		user1.assignVehicle(anotherVehicle);
 		
 		UserDetails user2 = new UserDetails();
 		

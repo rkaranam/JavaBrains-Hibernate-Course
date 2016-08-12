@@ -117,4 +117,8 @@ public class UserDetails {
 				+ description + "]";
 	}
 
+	public void assignVehicle(Vehicle vehicle) {
+		this.getVehicles().add(vehicle);
+		vehicle.setUser(this);
+	}
 }
