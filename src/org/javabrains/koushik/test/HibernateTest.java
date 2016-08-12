@@ -34,6 +34,8 @@ public class HibernateTest {
 		
 		user1.getVehicles().add(vehicle);
 		user1.getVehicles().add(anotherVehicle);
+		vehicle.setUser(user1);
+		anotherVehicle.setUser(user1);
 		
 		UserDetails user2 = new UserDetails();
 		
