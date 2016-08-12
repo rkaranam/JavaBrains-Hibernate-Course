@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -33,10 +35,22 @@ public class UserDetails {
 	
 	@Column(name = "DESCRIPTION")
 	private String description;
+
+	@OneToOne
+	@JoinColumn(name = "VEHICLE_ID")
+	private Vehicle vehicle;
 	
 	/*public UserDetails() {
 		System.out.println("UserDetails: Default Constructor called!");
 	}*/
+	
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
 	
 	public Credentials getCredentials() {
 		return credentials;

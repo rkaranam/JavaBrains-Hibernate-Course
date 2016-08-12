@@ -26,6 +26,11 @@ public class HibernateTest {
 		user1.setDescription("Skilled in Spring and Hibernate");
 		user1.setUserType("Permanent");
 		
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleName("Car");
+		
+		user1.setVehicle(vehicle);
+		
 		UserDetails user2 = new UserDetails();
 		
 		Credentials user2Credentials = new Credentials();
@@ -39,15 +44,13 @@ public class HibernateTest {
 		user2.setUserType("Contract");
 		user2.setDescription("Hands on experience with multiple Javascript frameworks");
 		
-		Vehicle vehicle = new Vehicle();
-		vehicle.setVehicleName("Car");
 		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
 		session.save(user1);
-		session.save(user2);
 		session.save(vehicle);
+		session.save(user2);
 		session.getTransaction().commit();
 		
 		/*session.clear();
