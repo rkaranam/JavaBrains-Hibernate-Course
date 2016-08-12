@@ -1,12 +1,15 @@
 package org.javabrains.koushik.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -36,20 +39,26 @@ public class UserDetails {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@OneToOne
-	@JoinColumn(name = "VEHICLE_ID")
-	private Vehicle vehicle;
+	@OneToMany
+	@JoinTable(name = "USER_VEHICLES",
+				joinColumns = {
+						@JoinColumn(name = "USER_ID"),
+						@JoinColumn(name = "USER_PASSWORD")
+				},
+				inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
+			)
+	private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	/*public UserDetails() {
 		System.out.println("UserDetails: Default Constructor called!");
 	}*/
 	
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Collection<Vehicle> getVehicles() {
+		return vehicles;
 	}
 	
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicles(Collection<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 	
 	public Credentials getCredentials() {
