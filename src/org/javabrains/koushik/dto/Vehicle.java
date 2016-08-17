@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,6 +19,10 @@ public class Vehicle {
 	private String vehicleName;
 	
 	@ManyToOne
+	@JoinColumns(value = {
+			@JoinColumn(name = "LOGIN_ID"),
+			@JoinColumn(name = "LOGIN_PASSWORD")
+	})
 	private UserDetails user;
 
 	public UserDetails getUser() {

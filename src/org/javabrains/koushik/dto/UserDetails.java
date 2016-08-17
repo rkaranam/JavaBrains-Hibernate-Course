@@ -7,8 +7,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,14 +37,14 @@ public class UserDetails {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@OneToMany
-	@JoinTable(name = "USER_VEHICLES",
+	@OneToMany(mappedBy = "user")
+	/*@JoinTable(name = "USER_VEHICLES",
 				joinColumns = {
 						@JoinColumn(name = "USER_ID"),
 						@JoinColumn(name = "USER_PASSWORD")
 				},
 				inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
-			)
+			)*/
 	private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	/*public UserDetails() {

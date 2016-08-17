@@ -52,7 +52,11 @@ public class HibernateTest {
 		user2.setJoinedTime(new Date());
 		user2.setUserType("Contract");
 		user2.setDescription("Hands on experience with multiple Javascript frameworks");
+
+		Vehicle vehicle2 = new Vehicle();
+		vehicle2.setVehicleName("512m Gaint Wheel");
 		
+		user2.assignVehicle(vehicle2);
 		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
@@ -61,6 +65,7 @@ public class HibernateTest {
 		session.save(vehicle);
 		session.save(anotherVehicle);
 		session.save(user2);
+		session.save(vehicle2);
 		session.getTransaction().commit();
 		
 		/*session.clear();
