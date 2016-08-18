@@ -5,12 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "VEHICLES")
 public class Vehicle {
-	
+
 	@Id @GeneratedValue
 	@Column(name = "VEHICLE_ID")
 	private int vehicleId;
@@ -19,10 +20,7 @@ public class Vehicle {
 	private String vehicleName;
 	
 	@ManyToOne
-	@JoinColumns(value = {
-			@JoinColumn(name = "LOGIN_ID"),
-			@JoinColumn(name = "LOGIN_PASSWORD")
-	})
+	@JoinColumn(name = "USER_ID")
 	private UserDetails user;
 
 	public UserDetails getUser() {
@@ -46,7 +44,7 @@ public class Vehicle {
 	@Override
 	public String toString() {
 		return "Vehicle [vehicleId=" + vehicleId + ", vehicleName="
-				+ vehicleName + "]";
+				+ vehicleName + ", user=" + user + "]";
 	}
-
+	
 }
