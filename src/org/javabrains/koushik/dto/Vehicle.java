@@ -1,11 +1,14 @@
 package org.javabrains.koushik.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,15 +22,14 @@ public class Vehicle {
 	@Column(name = "VEHICLE_NAME")
 	private String vehicleName;
 	
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
-	private UserDetails user;
-
-	public UserDetails getUser() {
-		return user;
+	@ManyToMany(mappedBy = "vehicles") // Avoids Hibernate creating two mapping tables
+	private Collection<UserDetails> usersList = new ArrayList<UserDetails>();
+	
+	public Collection<UserDetails> getUsersList() {
+		return usersList;
 	}
-	public void setUser(UserDetails user) {
-		this.user = user;
+	public void setUsersList(Collection<UserDetails> usersList) {
+		this.usersList = usersList;
 	}
 	public int getVehicleId() {
 		return vehicleId;
@@ -43,8 +45,24 @@ public class Vehicle {
 	}
 	@Override
 	public String toString() {
+		final int maxLen = 10;
 		return "Vehicle [vehicleId=" + vehicleId + ", vehicleName="
-				+ vehicleName + ", user=" + user + "]";
+				+ vehicleName + ", usersList="
+				+ (usersList != null ? toString(usersList, maxLen) : null)
+				+ "]";
+	}
+	private String toString(Collection<?> collection, int maxLen) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext()
+				&& i < maxLen; i++) {
+			if (i > 0)
+				builder.append(", ");
+			builder.append(iterator.next());
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

@@ -8,7 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -37,7 +38,8 @@ public class UserDetails {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@OneToMany(mappedBy = "user")
+	@ManyToMany
+	@JoinTable(name = "USER_RENTED_VEHICLES")
 	private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	/*public UserDetails() {
@@ -110,6 +112,6 @@ public class UserDetails {
 
 	public void assignVehicle(Vehicle vehicle) {
 		this.getVehicles().add(vehicle);
-		vehicle.setUser(this);
+		vehicle.getUsersList().add(this);
 	}
 }
